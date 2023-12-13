@@ -1,32 +1,7 @@
 const std = @import("std");
 const print = std.debug.print;
-const Game = struct {
-    id: u32,
-    balls: Balls,
-    pub fn init(id: u32, blue: u32, green: u32, red: u32) Game {
-        return Game{
-            .id = id,
-            .balls = Balls.init(blue, green, red),
-        };
-    }
-};
-const Balls = struct {
-    blue: u32,
-    green: u32,
-    red: u32,
-    pub fn init(blue: u32, green: u32, red: u32) Balls {
-        return Balls{
-            .blue = blue,
-            .green = green,
-            .red = red,
-        };
-    }
-};
 
 pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    const alloc = gpa.allocator();
-    var game_records = std.ArrayList(Game).init(alloc);
     var file = try std.fs.cwd().openFile("src/input.txt", .{});
 
     var file_buffer = std.io.bufferedReader(file.reader());
@@ -65,9 +40,7 @@ pub fn main() !void {
                 }
             }
         }
-        const game_dings = Game.init(id, blue, green, red);
-        try game_records.append(game_dings);
-        print("Game {d} has {d} blue balls, {d} green balls and {d} red balls!\n", .{ id, blue, green, red });
+        //print("Game {d} has {d} blue balls, {d} green balls and {d} red balls!\n", .{ id, blue, green, red });
         sum += blue * green * red;
     }
 

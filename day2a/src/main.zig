@@ -9,7 +9,7 @@ pub fn main() !void {
     var buf: [1024]u8 = undefined;
     var sum: u32 = 0;
 
-    while (try in_stream.readUntilDelimiterOrEof(&buf, '\n')) |line| {
+    core: while (try in_stream.readUntilDelimiterOrEof(&buf, '\n')) |line| {
         var id: u32 = 0;
         var last_i: u32 = 0;
         for (0..4) |i| {
@@ -30,19 +30,20 @@ pub fn main() !void {
 
                 const color = it3.next() orelse break;
                 if (std.mem.eql(u8, "blue", color)) {
+                    if (num > 14) continue :core;
                     if (num > blue) blue = num;
                 }
                 if (std.mem.eql(u8, "green", color)) {
+                    if (num > 13) continue :core;
                     if (num > green) green = num;
                 }
                 if (std.mem.eql(u8, "red", color)) {
+                    if (num > 12) continue :core;
                     if (num > red) red = num;
                 }
             }
         }
-        if (red <= 12 and green <= 13 and blue <= 14) {
-            sum += id;
-        }
+        sum += id;
     }
 
     print("{d}\n", .{sum});
