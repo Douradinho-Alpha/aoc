@@ -20,7 +20,7 @@ pub fn main() !void {
         var blue: u32 = 0;
         var green: u32 = 0;
         var red: u32 = 0;
-        var it = std.mem.tokenizeAny(u8, line[last_i..], ";");
+  .      var it = std.mem.tokenizeAny(u8, line[last_i..], ";");
 
         while (it.next()) |pre_token| {
             var it2 = std.mem.tokenizeAny(u8, pre_token, ",");
